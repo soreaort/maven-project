@@ -3,7 +3,7 @@ pipeline {
     stages{
         stage('Build'){
             steps {
-                sh 'mvn clean build-webapp'
+                sh 'mvn clean pipeline-example'
             }
             post {
                 success {
