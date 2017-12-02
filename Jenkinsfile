@@ -3,7 +3,7 @@ pipeline {
     stages{
         stage('Build'){
             steps {
-                sh 'mvn clean package'
+                sh 'mvn clean build-webapp'
             }
             post {
                 success {
@@ -14,7 +14,7 @@ pipeline {
         }
         stage ('Deploy to Staging'){
             steps {
-                build job: 'Deploy-to-staging'
+                build job: 'deploy-to-staging'
             }
         }
 
@@ -25,7 +25,7 @@ pipeline {
                     //input message:'Approve PRODUCTION Deployment?',submitter: XXX (Tell Jenkins who is the approver)
                 }
 
-                build job: 'Deploy-to-Prod'
+                build job: 'deploy-to-production'
             }
             post {
                 success {
