@@ -12,10 +12,10 @@ public class Greeter {
 
   }
   /*
-   *@param name of the person
-   *@return gret the person
+   * @param name of the person
+   * @return gret the person
    */
-  ublic final String greet(final String someone) {
+  public final String greet(final String someone) {
     return String.format("Hello, %s!", someone);
   }
 }
