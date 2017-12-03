@@ -27,10 +27,7 @@ stages{
 					}
 				}
 				stage ("Deploy to Production"){
-					steps{
-				        timeout(time:5, unit:'DAYS'){
-					        input message:'Approve PRODUCTION Deployment?'
-				        }
+					steps {
 						sh "cp **/target/*.war ${params.tomcat_prod}"
 					}
 				}
