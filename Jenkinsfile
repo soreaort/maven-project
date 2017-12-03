@@ -12,17 +12,15 @@ pipeline {
                 }
             }
         }
-        stage ('Staging and Analysis'){
-            parallel{
-                stage ('Deploy to Staging'){
-                    steps {
-                        build job: 'deploy-to-staging'
-                    }
+        parallel{
+            stage ('Deploy to Staging'){
+                steps {
+                    build job: 'deploy-to-staging'
                 }
-                stage ('Analysis'){
-                    steps {
-                        build job: 'static-analysis'
-                    }
+            }
+            stage ('Analysis'){
+                steps {
+                    build job: 'static-analysis'
                 }
             }
         }
