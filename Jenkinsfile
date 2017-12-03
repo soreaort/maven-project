@@ -14,6 +14,7 @@ pipeline {
         }
         stage ('Deploy to Staging'){
             steps {
+                build job: 'static-analysis'
                 build job: 'deploy-to-staging'
             }
         }
