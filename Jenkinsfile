@@ -19,17 +19,15 @@ stages{
 				}
 			}
 		}
-		stage ('Deployments'){
-			stage ('Deploy to Staging'){
-				steps {
-					sh "cp **/target/*.war ${params.tomcat_stg}"
-				}
+		stage ('Deploy to Staging'){
+			steps {
+				sh "cp **/target/*.war ${params.tomcat_stg}"
 			}
-			stage ("Deploy to Production"){
-				steps{
-					sh "cp **/target/*.war ${params.tomcat_prod}"
-			    }
-			}
+		}
+		stage ("Deploy to Production"){
+			steps{
+				sh "cp **/target/*.war ${params.tomcat_prod}"
+		    }
 		}
 	}
 }
