@@ -23,12 +23,12 @@ stages{
 			parallel{
 				stage ('Deploy to Staging'){
 					steps {
-						sh "cp **/target/*.war {params.tomcat_stg}"
+						sh "cp **/target/*.war ${params.tomcat_stg}"
 					}
 				}
 				stage ("Deploy to Production"){
 					steps {
-						sh "cp **/target/*.war {params.tomcat_prod}"
+						sh "cp **/target/*.war ${params.tomcat_prod}"
 					}
 				}
 			}
