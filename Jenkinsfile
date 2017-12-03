@@ -20,20 +20,15 @@ stages{
 			}
 		}
 		stage ('Deployments'){
-			parallel{
-				stage ('Deploy to Staging'){
-					steps {
-						sh "cp **/target/*.war ${params.tomcat_stg}"
-					}
+			stage ('Deploy to Staging'){
+				steps {
+					sh "cp **/target/*.war ${params.tomcat_stg}"
 				}
-				stage ("Deploy to Production"){
-					steps{
-				        timeout(time:5, unit:'DAYS'){
-					        input message:'Approve PRODUCTION Deployment?'
-				        }
-						sh "cp **/target/*.war ${params.tomcat_prod}"
-					}
-				}
+			}
+			stage ("Deploy to Production"){
+				steps{
+					sh "cp **/target/*.war ${params.tomcat_prod}"
+			    }
 			}
 		}
 	}
