@@ -23,7 +23,6 @@ pipeline {
                     input message:'Approve PRODUCTION Deployment?'
                     //input message:'Approve PRODUCTION Deployment?',submitter: XXX (Tell Jenkins who is the approver)
                 }
-
                 build job: 'deploy-to-production'
             }
             post {
