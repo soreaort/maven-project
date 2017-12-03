@@ -1,47 +1,37 @@
 pipeline {
-    agent any
-    stages{
-        stage('Build'){
-            steps {
-                sh 'mvn clean package'
-            }
-            post {
-                success {
-                    echo 'Now Archiving...'
-                    archiveArtifacts artifacts: '**/target/*.war'
-                }
-            }
-        }
-        stage ('Staging and Analysis'){
-            parallel{
-                stage ('Deploy to Staging'){
-                    steps {
-                        build job: 'deploy-to-staging'
-                    }
-                }
-                stage ('Analysis'){
-                    steps {
-                        build job: 'static-analysis'
-                    }
-                }
-            }
-        }
-        stage ('Deploy to Production'){
-            steps{
-                timeout(time:5, unit:'DAYS'){
-                    input message:'Approve PRODUCTION Deployment?'
-                    //input message:'Approve PRODUCTION Deployment?',submitter: XXX (Tell Jenkins who is the approver)
-                }
-                build job: 'deploy-to-production'
-            }
-            post {
-                success {
-                    echo 'Code deployed to Production.'
-                }
-                failure {
-                    echo ' Deployment failed.'
-                }
-            }
-        }
-    }
+	agent any
+	parameters {
+		string(name: 'tomcat_stg', defaultValue: '/opt/tomcat9-staging/webapps', description: 'Staging Instance')
+		string(name: 'tomcat_prod', defaultValue: '/opt/tomcat9-production/webapps', description: 'Production Instance')
+	}
+	triggers {
+		pollSCM('* * * * *')
+	 }
+stages{
+		stage('Build'){
+			steps {
+				sh 'mvn clean package'
+			}
+			post {
+				success {
+					echo 'Now Archiving...'
+					archiveArtifacts artifacts: '**/target/*.war'
+				}
+			}
+		}
+		stage ('Deployments'){
+			parallel{
+				stage ('Deploy to Staging'){
+					steps {
+						sh "cp **/target/*.war {params.tomcat_stg}"
+					}
+				}
+				stage ("Deploy to Production"){
+					steps {
+						sh "cp **/target/*.war {params.tomcat_prod}"
+					}
+				}
+			}
+		}
+	}
 }
