@@ -9,7 +9,9 @@ p    {color: red;}
 </head>
 <body>
 
-<h1>Ejemplo 1</h1>
+<h1>Ejemplo 2</h1>
+
+<b>Hello world!!</b>
 
 </body>
 </html>
