@@ -9,8 +9,7 @@ p    {color: red;}
 </head>
 <body>
 
-<h1>This is a heading</h1>
-<p>This is a paragraph.</p>
+<h1>Ejemplo 1</h1>
 
 </body>
 </html>
